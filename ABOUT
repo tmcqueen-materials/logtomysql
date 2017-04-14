@@ -1,0 +1,29 @@
+== LogToMysql == 
+
+*About*
+LogToMysql is a set of simple programs to log Apache access and errors to a 
+MySQL database using the piped log mechanism. 
+
+LogToMysql will work with both Apache 1 and Apache 2, or any other server which 
+supports piped logging. 
+
+Using LogToMysql it is possible for several computers to log to a single 
+database. Both access and error log management can be simplified in this way if 
+you run a large cluster of machines. The database can be on the same machine as 
+Apache, or on a separate machine. 
+
+No modification to the standard Apache install is required - no patching, no 
+recompilation. 
+
+Written in C 
+
+For easy to read documentation see
+http://logtomysql.sourceforge.net/
+
+*Performance*
+On an Athlon 1800 machine running both the Apache server and MySQL it was 
+possible to sustain logging of over 200 hits per second without problems. 
+
+*Licence*
+GPL version 2. 
+

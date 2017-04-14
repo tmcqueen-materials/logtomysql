@@ -1,0 +1,88 @@
+<html>
+<head>
+  <title>LogToMysql - piped logging from Apache to MySQL</title>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <META name="description" content="LogToMysql is a set of simple programs to log Apache access and errors to a MySQL database using the piped log mechanism.">
+  <META name="keywords" content="apache, mysql, piped, logs, logging, server farm, database">
+  <STYLE type="text/css">
+  BODY { font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  TABLE, TH, TD { font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  H1, H2, H3, H4, H5, H6 { font-family: Verdana, Arial, Helvetica, sans-serif;} 
+  DIV {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  P {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  LI {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  UL {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;}
+  </STYLE>
+</head>
+<body marginwidth="0" marginheight="0" color="#000000" bgcolor="#ffffff" border="0">
+<table cellspacing="0" cellpadding="10" width="100%" bgcolor="#ffffff">
+    <tr>
+      <td width="150"><a href="http://logtomysql.sourceforge.net/"><img src="logtomysql_2.png" alt="LogToMysql" height="36" width="145" border="0" alt="LogToMysql"></a>&nbsp;</td>
+      <td align="left" valign="middle" bgcolor="ffccff">
+      <h2>LogToMysql - piped logging from Apache to MySQL</h2>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" width="150" bgcolor="ffccff" height="1000">
+      <p><a href="index.html">Home</a></p>
+      <p><b>Readme</b></p>
+      <p><a href="install.html">Install</a></p>
+      <p><a href="trouble.html">Troubleshooting</a></p>
+      <p><a href="bugstodo.html">Bugs & TODO</a></p>
+      <p><a href="download.html">Download</a></p>
+      <br>
+         <a href="http://sourceforge.net/projects/logtomysql/">
+         <img src="sourceforge_whitebg.gif" width="136" height="79" border="0" alt="SourceForge Logo"></a>
+      </td>
+      <td align="left" valign="top">
+      <h2>Readme</h2>
+
+<p><b>LogToMysql</b><br>Simple programs to log Apache accesses and errors to a MySQL database using the piped log mechanism.</p>
+
+<p><b>Overview</b><br>
+
+This package contains two simple programs for logging from an Apache web server to a
+MySQL database using the piped logs mechanism. It can be used on either a single 
+server running both Apache and MySQL, or with separate machines. If separate 
+machines are used, several servers can log accesses and errors to a single database.</p>
+
+<p>The code may be used with both Apache versions 1 and 2, and other servers capable 
+of piped logging. It is designed for "common" or "combined" access log formats.</p>
+
+<p>No changes are required to a standard server installation - these are stand alone 
+programs not server modules.</p>
+
+<p>These programs have only been tested on Linux. They might work on Windows - let me 
+know if you try this out.</p>
+
+<p>On an Athlon 1800 machine running both the Apache server and MySQL it was possible to 
+sustain logging of over 200 hits per second without problems.</p>
+
+<p><b>Installation</b><br>
+
+See <a href="install.html">INSTALL</a></p>
+
+<p><b>Feedback, bugs and suggestions:</b><br>
+
+Please email feedback on your use of this software to David I Fletcher 
+&#32;&#40;&#32;&#100;&#97;&#118;&#105;&#100;&#64;&#109;&#101;&#103;&#97;&#112;&#105;&#99;&#111;.&#99;&#111;.&#117;&#107;&#32;&#41;&#46;&#32;</p>
+
+<p><b>Credits:</b><br>
+
+<p>Copyright 2003 by David I Fletcher &#32;&#40;&#32;&#100;&#97;&#118;&#105;&#100;&#64;&#109;&#101;&#103;&#97;&#112;&#105;&#99;&#111;.&#99;&#111;.&#117;&#107;&#32;&#41;&#46;&#32;</p>
+
+<p>Code for parsing access logs developed in the Webalizer server log file analysis 
+program, copyright 1997-2000 by Bradford L. Barrett (brad@mrunix.net).</p>
+
+<p>This product includes software developed by Christopher B. Powell 
+<chris@grubbybaby.com> for use in the mod_log_mysql project 
+(http://www.grubbybaby.com/mod_log_mysql/).</p>
+
+
+
+      </td>
+    </tr>
+
+</table>
+</body>
+</html>

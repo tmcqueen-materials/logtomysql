@@ -1,0 +1,43 @@
+== Readme == 
+
+*LogToMysql*
+Simple programs to log Apache accesses and errors to a MySQL database using the 
+piped log mechanism. 
+
+*Overview*
+This package contains two simple programs for logging from an Apache web server 
+to a MySQL database using the piped logs mechanism. It can be used on either a 
+single server running both Apache and MySQL, or with separate machines. If 
+separate machines are used, several servers can log accesses and errors to a 
+single database. 
+
+The code may be used with both Apache versions 1 and 2, and other servers 
+capable of piped logging. It is designed for "common" or "combined" access log 
+formats. 
+
+No changes are required to a standard server installation - these are stand 
+alone programs not server modules. 
+
+These programs have only been tested on Linux. They might work on Windows - let 
+me know if you try this out. 
+
+On an Athlon 1800 machine running both the Apache server and MySQL it was 
+possible to sustain logging of over 200 hits per second without problems. 
+
+*Installation*
+See INSTALL
+
+*Feedback, bugs and suggestions:*
+Please email feedback on your use of this software to David I Fletcher ( 
+david@megapico.co.uk ).  
+
+*Credits:*
+
+
+Copyright 2003 by David I Fletcher ( david@megapico.co.uk ).  
+
+Code for parsing access logs developed in the Webalizer server log file 
+analysis program, copyright 1997-2000 by Bradford L. Barrett (brad@mrunix.net). 
+
+This product includes software developed by Christopher B. Powell  for use in 
+the mod_log_mysql project (http://www.grubbybaby.com/mod_log_mysql/).

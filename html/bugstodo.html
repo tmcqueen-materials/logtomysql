@@ -1,0 +1,67 @@
+<html>
+<head>
+  <title>LogToMysql - piped logging from Apache to MySQL</title>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <META name="description" content="LogToMysql is a set of simple programs to log Apache access and errors to a MySQL database using the piped log mechanism.">
+  <META name="keywords" content="apache, mysql, piped, logs, logging, server farm, database">
+  <STYLE type="text/css">
+  BODY { font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  TABLE, TH, TD { font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  H1, H2, H3, H4, H5, H6 { font-family: Verdana, Arial, Helvetica, sans-serif;} 
+  DIV {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  P {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  LI {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  UL {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;}
+  </STYLE>
+</head>
+<body marginwidth="0" marginheight="0" color="#000000" bgcolor="#ffffff" border="0">
+<table cellspacing="0" cellpadding="10" width="100%" bgcolor="#ffffff">
+    <tr>
+      <td width="150"><a href="http://logtomysql.sourceforge.net/"><img src="logtomysql_2.png" alt="LogToMysql" height="36" width="145" border="0" alt="LogToMysql"></a>&nbsp;</td>
+      <td align="left" valign="middle" bgcolor="ffccff">
+      <h2>LogToMysql - piped logging from Apache to MySQL</h2>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" width="150" bgcolor="ffccff" height="1000">
+      <p><a href="index.html">Home</a></p>
+      <p><a href="readme.html">Readme</a></p>
+      <p><a href="install.html">Install</a></p>
+      <p><a href="trouble.html">Troubleshooting</a></p>
+      <p><b>Bugs & TODO</b></p>
+      <p><a href="download.html">Download</a></p>
+      <br>
+         <a href="http://sourceforge.net/projects/logtomysql/">
+         <img src="sourceforge_whitebg.gif" width="136" height="79" border="0" alt="SourceForge Logo"></a>
+      </td>
+      <td align="left" valign="top">
+      <h2>Bugs and TODO</h2>
+
+
+      <p><b>Bugs</b>
+
+      <ul>
+      <li>
+      None currently listed.
+      </li>
+      </ul>
+
+      <p><b>Fixed Bugs</b>
+
+      <ul>
+      <li><p><a href="http://www.grsecurity.net/">Grsecurity</a> on Mandrake 9.1 kills the error logging process on server startup. Access logs are not affected, and a later manual restart of Apache launches both error and access logging without problems.</p><p>Solution: This was caused by the server starting Apache (and hence LogToMysql) before MySQL. Grsecurity killed the error logging process because it was trying to access MySQL using a socket which hadn't yet been created. To avoid this, check the order in which Apache and MySQL are started, for example by looking at the numbered links in directories below /etc/rc.d/</p></li>
+      </ul>
+
+      <h2>TODO</h2>
+
+      <ul>
+      <li>Add support for logging virtual host information in access logs - currently only the standard "common" or "combined" log format is supported</li>
+      <li>Add identification of the machine from which error messages are logged. Currently the machine is not identified in the case of multiple computers logging to a single database.</li>
+      </ul>
+
+      </td>
+    </tr>
+
+</table>
+</body>
+</html>

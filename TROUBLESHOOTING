@@ -1,0 +1,73 @@
+== Troubleshooting == 
+
+There is lots of configuration to do, so don't be surprised if it doesn't work 
+first time. Some things to try are: 
+
+- 
+
+Check your MySQL log-in details are working OK by starting a MySQL console from 
+the machine running Apache (assuming the standard text based client is 
+available on that machine), e.g. 
+
+for localhost running MySQL
+mysql -u weblogger -p  
+
+for MySQL running on a remote host (change the IP to match your set-up)
+mysql -u weblogger -p -P 3306 -h 192.168.0.2 
+
+If you can't log in this way, LogToMysql probably won't be able to either. 
+Check you created the MySQL user with the right name and password. If running 
+Apache and MySQL on separate machines check that the user is allowed to connect 
+from the IP number of the machine on which LogToMysql will run (i.e. the 
+machine running Apache).
+
+
+- 
+
+Check the LogToMysql log files for clues. The location of these files is 
+specified in the my.cnf file. If the log files don't exist, check that the 
+files pointed to in the Apache config file (e.g. 
+"|/usr/local/bin/logerrortomysql") actually exist, and are executable by root.
+
+
+- 
+
+Check that when the server starts, it is starting MySQL before it starts 
+Apache. If MySQL is not running when Apache starts, the logerrortomysql process 
+cannot find MySQL, and it then may die. Grsecurity (built into some Linux kernels) 
+will kill logerrortomysql in this case because it is trying to access MySQL 
+using a socket which doesn't exist until MySQL starts. See the startup scripts 
+in (usually in /etc/rc.d/) to sort this out. On systems without Grsecurity versions 
+of logtomysql 0.95 and after should continue to run until MySQL becomes available, 
+and will then re-establish a database connection.
+
+
+- 
+
+Check that my.cnf is readable and contains all the required information under 
+the correct headings. ALL the lines shown in the examples should be included.
+If logging to a remote machine, make sure that this config file is on the same 
+machine that Apache is running on.
+
+
+- 
+
+Check that there are not 2 or more copies of the Apache or MySQL config files 
+around. This can happen if you have updated the distribution using a source 
+code install of Apache or MySQL rather than the standard RPM. If there are two 
+copies of config files, it can be difficult to tell which on is really being 
+used. For example, Apache puts its config files in /usr/local/apache/conf, but 
+many distributions put them in /etc/httpd. Work out which copy you want, and 
+append 'old' to the names of the others (don't delete them in case they are 
+useful).
+
+
+- 
+
+Installation of LogToMysql along with Apache in a chroot is possible and works 
+fine, but there are some complications with making sure the MySQL socket is 
+found, and that the configuration files are inside the chroot jail, not outside 
+it. The mysqlclient library may need to be in the chroot too, depending on how
+the chroot is set up. An easy way to set one up is with mod_security 
+(www.modsecurity.org)
+

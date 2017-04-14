@@ -1,0 +1,65 @@
+<html>
+<head>
+  <title>LogToMysql - piped logging from Apache to MySQL</title>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <META name="description" content="LogToMysql is a set of simple programs to log Apache access and errors to a MySQL database using the piped log mechanism.">
+  <META name="keywords" content="apache, mysql, piped, logs, logging, server farm, database">
+  <STYLE type="text/css">
+  BODY { font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  TABLE, TH, TD { font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  H1, H2, H3, H4, H5, H6 { font-family: Verdana, Arial, Helvetica, sans-serif;} 
+  DIV {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  P {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  LI {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;} 
+  UL {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px;}
+  </STYLE>
+</head>
+<body marginwidth="0" marginheight="0" color="#000000" bgcolor="#ffffff" border="0">
+<table cellspacing="0" cellpadding="10" width="100%" bgcolor="#ffffff">
+    <tr>
+      <td width="150"><a href="http://logtomysql.sourceforge.net/"><img src="logtomysql_2.png" alt="LogToMysql" height="36" width="145" border="0" alt="LogToMysql"></a>&nbsp;</td>
+      <td align="left" valign="middle" bgcolor="ffccff">
+      <h2>LogToMysql - piped logging from Apache to MySQL</h2>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" width="150" bgcolor="ffccff" height="1000">
+      <p><b>Home</b></p>
+      <p><a href="readme.html">Readme</a></p>
+      <p><a href="install.html">Install</a></p>
+      <p><a href="trouble.html">Troubleshooting</a></p>
+      <p><a href="bugstodo.html">Bugs & TODO</a></p>
+      <p><a href="download.html">Download</a></p>
+      <br>
+         <a href="http://sourceforge.net/projects/logtomysql/">
+         <img src="sourceforge_whitebg.gif" width="136" height="79" border="0" alt="SourceForge Logo"></a>
+      </td>
+      <td align="left" valign="top">
+      <h2>LogToMysql</h2>
+
+      <p><b>About</b><br>LogToMysql is a set of simple programs to log Apache access and errors to a MySQL database using the piped log mechanism.</p>
+
+      <p>LogToMysql will work with both Apache 1 and Apache 2, or any other server which supports piped logging.</p>
+      <p>Using LogToMysql it is possible for several computers to log to a single database. Both access and error log management can be simplified in this way if you run a large cluster of machines. The database can be on the same machine as Apache, or on a separate machine.</p>
+
+      <p>No modification to the standard Apache install is required - no patching, no recompilation.</p>
+      <p>Written in C</p>
+
+      <p><b>Performance</b><br>On an Athlon 1800 machine running both the Apache server and MySQL it was possible to sustain logging of over 200 hits per second without problems.</p>
+
+      <p><b>Licence</b><br>GPL version 2.</p>
+
+
+      <h2>News</h2>
+
+      <p><b>4-Nov-2003</b><br>First public release, version 0.9</p>
+      <p><b>10-Nov-2003</b><br>Version 0.91 - documentation corrections</p>
+      <p><b>17-Nov-2003</b><br>Version 0.911 - documentation corrections. Note that MySQL 4.0 or above is required.</p>
+      <p><b>20-Sept-2005</b><br>Version 0.95 - (1) Changes to prevent segmentation fault in case attempting to log when the database is down, or is slower starting up than the Apache server. (2) Added writing errors to standard output if there is no error log configured - thanks to George Chelidze</p>
+
+      </td>
+    </tr>
+
+</table>
+</body>
+</html>

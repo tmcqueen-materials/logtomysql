@@ -1,0 +1,32 @@
+== Bugs and TODO == 
+
+*Bugs* 
+
+-  None currently listed.  
+
+*Fixed Bugs* 
+
+- 
+
+Grsecurity[8] on Mandrake 9.1 kills the error logging process on server 
+startup. Access logs are not affected, and a later manual restart of Apache 
+launches both error and access logging without problems.
+
+
+
+Solution: This was caused by the server starting Apache (and hence LogToMysql) 
+before MySQL. Grsecurity killed the error logging process because it was trying 
+to access MySQL using a socket which hadn't yet been created. To avoid this, 
+check the order in which Apache and MySQL are started, for example by looking 
+at the numbered links in directories below /etc/rc.d/
+
+
+
+== TODO == 
+
+- Add support for logging virtual host information in access logs - currently 
+only the standard "common" or "combined" log format is supported 
+- Add identification of the machine from which error messages are logged. 
+Currently the machine is not identified in the case of multiple computers 
+logging to a single database.
+
