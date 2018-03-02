@@ -342,7 +342,7 @@ void fmt_logrec(char *buffer)
       switch (*cp)
       {
        case ' ': if (b || q || p) break; *cp='\0'; break;
-       case '"': q^=1;  break;
+       case '"': if (!q || *(cp+1) == '\0' || *(cp+1) == ' ' || *(cp+1) != '\n') q^=1;  break;
        case '[': if (q) break; b++; break;
        case ']': if (q) break; if (b>0) b--; break;
        case '(': if (q) break; p++; break;
@@ -457,12 +457,7 @@ int parse_record_web(char *buffer)
    eos = (cp1+MAXURL-1);
    if (eos >= eob) eos = eob-1;
 
-   if ( (*cp1 == '"') ) {
-     *cp2++ = *cp1++;
-     while ( (*cp1 != '"') && (cp1 != eos) ) *cp2++ = *cp1++;
-     if (*cp1 == '"') *cp2++ = *cp1++;
-     while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
-   }
+   while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
    *cp2 = '\0';
    if (*cp1 != '\0')
    {
@@ -499,12 +494,7 @@ int parse_record_web(char *buffer)
    eos = (cp1+MAXREF-1);
    if (eos >= eob) eos = eob-1;
 
-   if ( (*cp1 == '"') ) {
-     *cp2++ = *cp1++;
-     while ( (*cp1 != '"') && (cp1 != eos) ) *cp2++ = *cp1++;
-     if (*cp1 == '"') *cp2++ = *cp1++;
-     while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
-   }
+   while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
    *cp2 = '\0';
    if (*cp1 != '\0')
    {
@@ -523,12 +513,7 @@ int parse_record_web(char *buffer)
    eos = cp1+(MAXAGENT-1);
    if (eos >= eob) eos = eob-1;
 
-   if ( (*cp1 == '"') ) {
-     *cp2++ = *cp1++;
-     while ( (*cp1 != '"') && (cp1 != eos) ) *cp2++ = *cp1++;
-     if (*cp1 == '"') *cp2++ = *cp1++;
-     while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
-   }
+   while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
    *cp2 = '\0';
 
    /* done with CMN record */
