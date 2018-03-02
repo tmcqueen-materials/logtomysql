@@ -457,7 +457,12 @@ int parse_record_web(char *buffer)
    eos = (cp1+MAXURL-1);
    if (eos >= eob) eos = eob-1;
 
-   while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
+   if ( (*cp1 == '"') ) {
+     *cp2++ = *cp1++;
+     while ( (*cp1 != '"') && (cp1 != eos) ) *cp2++ = *cp1++;
+     if (*cp1 == '"') *cp2++ = *cp1++;
+     while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
+   }
    *cp2 = '\0';
    if (*cp1 != '\0')
    {
@@ -494,7 +499,12 @@ int parse_record_web(char *buffer)
    eos = (cp1+MAXREF-1);
    if (eos >= eob) eos = eob-1;
 
-   while ( (*cp1 != '\0') && (*cp1 != '\n') && (cp1 != eos) ) *cp2++ = *cp1++;
+   if ( (*cp1 == '"') ) {
+     *cp2++ = *cp1++;
+     while ( (*cp1 != '"') && (cp1 != eos) ) *cp2++ = *cp1++;
+     if (*cp1 == '"') *cp2++ = *cp1++;
+     while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
+   }
    *cp2 = '\0';
    if (*cp1 != '\0')
    {
@@ -513,7 +523,12 @@ int parse_record_web(char *buffer)
    eos = cp1+(MAXAGENT-1);
    if (eos >= eob) eos = eob-1;
 
-   while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
+   if ( (*cp1 == '"') ) {
+     *cp2++ = *cp1++;
+     while ( (*cp1 != '"') && (cp1 != eos) ) *cp2++ = *cp1++;
+     if (*cp1 == '"') *cp2++ = *cp1++;
+     while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
+   }
    *cp2 = '\0';
 
    /* done with CMN record */
