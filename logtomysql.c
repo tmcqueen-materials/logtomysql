@@ -334,19 +334,20 @@ int safe_mysql_query(const char *query)
 void fmt_logrec(char *buffer)
 {
    char *cp=buffer;
-   int  q=0,b=0,p=0;
+   int  q=0,b=0,p=0,sq=0;
 
    while (*cp != '\0')
    {
       /* break record up, terminate fields with '\0' */
       switch (*cp)
       {
-       case ' ': if (b || q || p) break; *cp='\0'; break;
-       case '"': if (!q || *(cp+1) == '\0' || *(cp+1) == ' ' || *(cp+1) != '\n') q^=1;  break;
-       case '[': if (q) break; b++; break;
-       case ']': if (q) break; if (b>0) b--; break;
-       case '(': if (q) break; p++; break;
-       case ')': if (q) break; if (p>0) p--; break;
+       case ' ': if (b || q || p || sq) break; *cp='\0'; break;
+       case '\'': if (!q) sq ^=1; break;
+       case '"': if (!sq) q^=1;  break;
+       case '[': if (q || sq) break; b++; break;
+       case ']': if (q || sq) break; if (b>0) b--; break;
+       case '(': if (q || sq) break; p++; break;
+       case ')': if (q || sq) break; if (p>0) p--; break;
       }
       cp++;
    }
