@@ -38,6 +38,7 @@
 #define BUFSIZE  12288                 /* Max buffer size for log record   */
 #define MAXHOST  512                   /* Max hostname buffer size         */
 #define MAXURL   4096                  /* Max HTTP request/URL field size  */
+#define	MAXHTTP	 12    	       	       /* Max http version field size  	   */
 #define MAXREF   4096                  /* Max referrer field size          */
 #define MAXAGENT 256                   /* Max user agent field size        */
 #define MAXSRCH  1024                  /* Max size of search string buffer */
@@ -52,6 +53,9 @@ struct  log_struct  {
   char   safe_datetime[59];                      /* escaped raw timestamp        */
   char   url[MAXURL];                            /* raw request field            */
   char   safe_url[(MAXURL*2) + 1];               /* escaped raw request field    */
+  char   http[MAXHTTP];                          /* HTTP type (1.0/1.1/2.0)      */
+  char   safe_http[(MAXHTTP*2) + 1];             /* escaped HTTP type            */
+  u_long req_size;                               /* request size in bytes        */
   int    resp_code;                              /* response code                */
   u_long xfer_size;                              /* xfer size in bytes           */
   char   refer[MAXREF];                          /* referrer                     */
@@ -176,6 +180,7 @@ int main (int argc, char **argv)
 	mysql_real_escape_string(conn, log_rec.safe_hostname, log_rec.hostname, strlen(log_rec.hostname));
 	mysql_real_escape_string(conn, log_rec.safe_datetime, log_rec.datetime, strlen(log_rec.datetime));
 	mysql_real_escape_string(conn, log_rec.safe_url, log_rec.url, strlen(log_rec.url));
+        mysql_real_escape_string(conn, log_rec.safe_http, log_rec.http, strlen(log_rec.http));
 	mysql_real_escape_string(conn, log_rec.safe_refer, log_rec.refer, strlen(log_rec.refer));
 	mysql_real_escape_string(conn, log_rec.safe_agent, log_rec.agent, strlen(log_rec.agent));
 	mysql_real_escape_string(conn, log_rec.safe_ident, log_rec.ident, strlen(log_rec.ident));
@@ -185,6 +190,7 @@ int main (int argc, char **argv)
 	mysql_escape_string(log_rec.safe_hostname, log_rec.hostname, strlen(log_rec.hostname));
 	mysql_escape_string(log_rec.safe_datetime, log_rec.datetime, strlen(log_rec.datetime));
 	mysql_escape_string(log_rec.safe_url, log_rec.url, strlen(log_rec.url));
+        mysql_escape_string(log_rec.safe_http, log_rec.http, strlen(log_rec.http));
 	mysql_escape_string(log_rec.safe_refer, log_rec.refer, strlen(log_rec.refer));
 	mysql_escape_string(log_rec.safe_agent, log_rec.agent, strlen(log_rec.agent));
 	mysql_escape_string(log_rec.safe_ident, log_rec.ident, strlen(log_rec.ident));
@@ -192,10 +198,10 @@ int main (int argc, char **argv)
         mysql_escape_string(log_rec.safe_ssl_cipher, log_rec.ssl_cipher, strlen(log_rec.ssl_cipher));
       }
       
-      sprintf(query, "INSERT INTO log (hostname, datetime, datetime_ts, url, refer, agent, ident, resp_code, xfer_size, ssl_protocol, ssl_cipher)\
-                        VALUES ('%s', '%s', unix_timestamp(STR_TO_DATE('%s','%s')), '%s', '%s', '%s', '%s', %i, %lu, '%s', '%s')", \
-	      log_rec.safe_hostname, log_rec.safe_datetime, log_rec.safe_datetime, "[%d/%b/%Y:%H:%i:%S", log_rec.safe_url, log_rec.safe_refer,\
-	      log_rec.safe_agent, log_rec.safe_ident, log_rec.resp_code, log_rec.xfer_size,\
+      sprintf(query, "INSERT INTO log (hostname, datetime, datetime_ts, url, http_type, req_size, refer, agent, ident, resp_code, xfer_size, ssl_protocol, ssl_cipher)\
+                        VALUES ('%s', '%s', unix_timestamp(STR_TO_DATE('%s','%s')), '%s', '%s', %lu, '%s', '%s', '%s', %i, %lu, '%s', '%s')", \
+	      log_rec.safe_hostname, log_rec.safe_datetime, log_rec.safe_datetime, "[%d/%b/%Y:%H:%i:%S", log_rec.safe_url, log_rec.safe_http,\
+              log_rec.req_size, log_rec.safe_refer, log_rec.safe_agent, log_rec.safe_ident, log_rec.resp_code, log_rec.xfer_size,\
 	      log_rec.safe_ssl_protocol, log_rec.safe_ssl_cipher);
       
       retval = safe_mysql_query(query);
@@ -512,6 +518,22 @@ int parse_record_web(char *buffer)
 
    /* done with CMN record */
    if (cp1>=eob) return 1;
+
+   while ( (*cp1 != '\0') && (*cp1 != '\n') && (cp1 < eob) ) cp1++;
+   if (cp1 < eob) cp1++;
+   /* get http type if present */
+   cpx = cp1;
+   cp2 = log_rec.http;
+   eos = (cp1+MAXHTTP-1);
+   if (eos >= eob) eos = eob-1;
+   while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
+   *cp2 = '\0';
+
+   /* request size */
+   while ( (*cp1 != '\0') && (*cp1 != '\n') && (cp1 < eob) ) cp1++;
+   if (cp1 < eob) cp1++;
+   if (*cp1<'0') log_rec.req_size=0;
+   else log_rec.req_size = strtoul(cp1,NULL,10);
 
    while ( (*cp1 != '\0') && (*cp1 != '\n') && (cp1 < eob) ) cp1++;
    if (cp1 < eob) cp1++;
